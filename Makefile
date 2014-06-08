@@ -24,6 +24,7 @@ $(MAIN): $(OBJS)
 	$(CC) $(CFLAGS) $(INCLUDES) -o $(MAIN) $(NOBJS)
 
 .c.o:
+	@mkdir -p obj
 	$(CC) $(CFLAGS) $(INCLUDES) -c $<  -o $(subst src/,obj/,$@)
 
 clean:
