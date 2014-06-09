@@ -1,6 +1,12 @@
 CC=					gcc
 
-CFLAGS=				-Wall -Wextra -g
+DEBUG=				false
+
+CFLAGS=				-Wall -Wextra
+
+ifeq ($(DEBUG), true)
+	CFLAGS+= -g
+endif
 
 INCLUDES=			-Iinclude
 
@@ -9,26 +15,24 @@ SRCS=				src/cell.c					\
 					src/solver.c				\
 					src/grid_integrity.c
 
-OBJS=				$(SRCS:.c=.o)
-NOBJS:=				$(subst src/,obj/,$(OBJS))
+OBJS=				$(patsubst src/%,obj/%,$(SRCS:.c=.o))
 
-MAIN = sudokuSolver
+MAIN= sudokuSolver
 
 
 .PHONY: depend clean
+
+re: clean all
 
 all : $(MAIN)
 	@echo Compiled succefully
 
 $(MAIN): $(OBJS)
-	$(CC) $(CFLAGS) $(INCLUDES) -o $(MAIN) $(NOBJS)
+	$(CC) $(CFLAGS) $(INCLUDES) -o $@ $(OBJS)
 
-.c.o:
-	@mkdir -p obj
-	$(CC) $(CFLAGS) $(INCLUDES) -c $<  -o $(subst src/,obj/,$@)
+obj/%.o: src/%.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:
-	rm obj/*.o *~ $(MAIN)
-
-depend: $(SRCS)
-	makedepends $(INCLUDES) $^
+	rm -rf $(OBJS) $(MAIN)
