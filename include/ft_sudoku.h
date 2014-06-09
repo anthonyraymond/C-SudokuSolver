@@ -38,9 +38,10 @@ struct s_grid
 };
 
 
-t_grid						*create_grid(char *input_string);
+t_grid						*create_grid(char **input_array);
 void						destroy_grid(t_grid *grid);
 void						print_grid(t_grid *grid);
+void						print_grid_as_line(t_grid *grid);
 void						copy_grid(t_grid *dest, t_grid *origin);
 
 t_cell						*create_cell(t_digit reliable_digit, uint8_t pos_x, uint8_t pos_y);

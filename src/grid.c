@@ -1,23 +1,10 @@
 #include "ft_sudoku.h"
 
-t_grid			*create_grid(char *input_string)
+t_grid			*create_grid(char **input_array)
 {
 	int				i;
 	int				j;
 	t_grid			*grid;
-
-	(void)input_string;
-	char *debug_array[] = {
-		"800000000",
-		"003600000",
-		"070090200",
-		"050007000",
-		"000045700",
-		"000100030",
-		"001000068",
-		"008500010",
-		"090000400"
-	};
 
 	grid = malloc(sizeof(t_grid));
 
@@ -28,7 +15,7 @@ t_grid			*create_grid(char *input_string)
 		for (j = 0; j < GRID_TOP_DIGIT; ++j)
 		{
 			t_cell *cell;
-			t_digit digit = (int) (debug_array[i][j] - 48);
+			t_digit digit = (int) (input_array[i][j] - 48);
 
 			cell = (t_cell*) create_cell(digit, i, j);
 			grid->cells[i][j] = cell;
@@ -37,7 +24,10 @@ t_grid			*create_grid(char *input_string)
 				++grid->reliable_cells_count;
 			}
 		}
+		free(input_array[i]);
 	}
+
+	free(input_array);
 
 	for (i = 0; i < GRID_TOP_DIGIT; ++i)
 	{
@@ -49,7 +39,11 @@ t_grid			*create_grid(char *input_string)
 			}
 		}
 	}
-
+	if (!check_whole_grid_integrity(grid))
+	{
+		destroy_grid(grid);
+		return (NULL);
+	}
 	return (grid);
 }
 
@@ -108,6 +102,30 @@ void			print_grid(t_grid *grid)
 	}
 
 	strcat(output, "\0");
+	printf("%s\n", output);
+}
+
+void			print_grid_as_line(t_grid *grid)
+{
+	int			i;
+	int			j;
+	char		output[89] = "";
+	char		buffer[5] = "";
+
+
+	for (i = 0; i < GRID_TOP_DIGIT; ++i)
+	{
+		for (j = 0; j < GRID_TOP_DIGIT; ++j)
+		{
+			sprintf(buffer, "%d", grid->cells[i][j]->reliable_digit);
+			strcat(output, buffer);
+		}
+		if (i != (GRID_TOP_DIGIT - 1))
+		{
+			strcat(output, "-");
+		}
+	}
+
 	printf("%s\n", output);
 }
 

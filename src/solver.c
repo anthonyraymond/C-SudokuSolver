@@ -149,33 +149,75 @@ t_grid				*recursive_solver(t_grid *grid, t_cell *forced_cell)
 }
 
 
+char				**input_as_array(char *input)
+{
+	char			**grid_array;
+	unsigned int	i;
+	int				current_array_index;
+	int				current_line_index;
 
+	current_array_index = 0;
+	current_line_index = 0;
+
+	grid_array = malloc(sizeof(char *) * 9);
+	grid_array[0] = malloc(sizeof(char) * 10);
+
+	for (i = 0; i < strlen(input); ++i)
+	{
+
+		if (input[i] != '-')
+		{
+			grid_array[current_array_index][current_line_index] =  input[i];
+
+			++current_line_index;
+		}
+		else
+		{
+			grid_array[current_array_index][current_line_index] = '\0';
+			++current_array_index;
+			grid_array[current_array_index] = malloc(sizeof(char) * 10);
+			current_line_index = 0;
+		}
+	}
+
+	return (grid_array);
+}
 
 int					main(int argc, char *argv[])
 {
-	(void)argc;
-	(void)argv;
+	t_grid 			*grid;
+	char			**grid_as_array;
 
-	t_grid *grid;
-	grid = (t_grid*) create_grid(argv[1]);
+	if (argc != 2)
+	{
+		printf("Usage : %s < sudoku as string splited by '-' >\n", argv[0]);
+		printf("Ex : %s 000000000-000000000-000000000-000000000-000000000-000000000-0000000000-000000000-000000000\n", argv[0]);
 
-	print_grid(grid);
+		return (1);
+	}
+	if (strlen(argv[1]) != 89)
+	{
+		printf("Input does not match required length\n");
 
-	grid = recursive_solver(grid, NULL);
+		return (1);
+	}
 
-	print_grid(grid);
 
-/*
-printf("\n");
-	t_grid		*gridcop = malloc(sizeof(t_grid));
-	copy_grid(gridcop, grid);
-	gridcop->cells[0][0]->reliable_digit = 6;
-	print_grid(gridcop);
+	grid_as_array = input_as_array(argv[1]);
 
-	printf("\n");
-	print_grid(grid);
+	grid = (t_grid*) create_grid(grid_as_array);
+	if (grid != NULL)
+	{
+		grid = recursive_solver(grid, NULL);
+		print_grid_as_line(grid);
 
-	destroy_grid(gridcop);*/
-	destroy_grid(grid);
+		destroy_grid(grid);
+	}
+	else
+	{
+		printf("Unsolvable grid\n");
+		return (1);
+	}
+
 	return (0);
 }
