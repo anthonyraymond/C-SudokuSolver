@@ -21,6 +21,8 @@ void				put_reliable_and_propage_constraint(t_grid *grid, int cell_pos_x, int ce
 	int				i;
 	int			reliable_digit;
 
+		reliable_digit = 0;
+
 	for(i = 0; i < GRID_TOP_DIGIT; ++i)
 	{
 		if (grid->cells[cell_pos_x][cell_pos_y]->possible_digits[i])
