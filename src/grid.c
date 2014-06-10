@@ -109,7 +109,7 @@ void			print_grid_as_line(t_grid *grid)
 {
 	int			i;
 	int			j;
-	char		output[89] = "";
+	char		output[90] = "";
 	char		buffer[5] = "";
 
 
