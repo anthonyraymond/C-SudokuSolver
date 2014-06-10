@@ -1,11 +1,11 @@
 #include "ft_sudoku.h"
 
-bool			check_row_and_col_integrity(t_grid *grid, int row_index, int col_index)
+t_bool			check_row_and_col_integrity(t_grid *grid, int row_index, int col_index)
 {
 	int 		i;
-	bool		avaliable_digits_raw[9] = {false};
-	bool		avaliable_digits_col[9] = {false};
-	t_digit		current_digit;
+	t_bool		avaliable_digits_raw[9] = {false};
+	t_bool		avaliable_digits_col[9] = {false};
+	int			current_digit;
 
 	for (i = 0; i < GRID_TOP_DIGIT; ++i)
 	{
@@ -34,14 +34,14 @@ bool			check_row_and_col_integrity(t_grid *grid, int row_index, int col_index)
 }
 
 
-bool			check_cell_block_integrity(t_grid *grid, int cell_pos_x, int cell_pos_y)
+t_bool			check_cell_block_integrity(t_grid *grid, int cell_pos_x, int cell_pos_y)
 {
 	int			i;
 	int			j;
 	int			block_x_start;
 	int			block_y_start;
-	bool		avaliable_digits[9] = {false};
-	t_digit		current_digit;
+	t_bool		avaliable_digits[9] = {false};
+	int			current_digit;
 
 	block_x_start = ((int)(cell_pos_x / BLOCK_BY_ROW)) * BLOCK_BY_ROW;
 	block_y_start = ((int)(cell_pos_y / BLOCK_BY_ROW)) * BLOCK_BY_ROW;
@@ -65,7 +65,7 @@ bool			check_cell_block_integrity(t_grid *grid, int cell_pos_x, int cell_pos_y)
 	return (true);
 }
 
-bool			check_whole_grid_integrity(t_grid *grid)
+t_bool			check_whole_grid_integrity(t_grid *grid)
 {
 	int			i;
 	int			j;
@@ -87,7 +87,7 @@ bool			check_whole_grid_integrity(t_grid *grid)
 	return (true);
 }
 
-void			propage_row_and_col_constraint(t_grid *grid, t_digit reliable_digit, int cell_pos_x, int cell_pos_y)
+void			propage_row_and_col_constraint(t_grid *grid, int reliable_digit, int cell_pos_x, int cell_pos_y)
 {
 	int			i;
 	t_cell		*buffer_cell;
@@ -116,7 +116,7 @@ void			propage_row_and_col_constraint(t_grid *grid, t_digit reliable_digit, int 
 	}
 }
 
-void			propage_block_constraint(t_grid *grid, t_digit reliable_digit, int cell_pos_x, int cell_pos_y)
+void			propage_block_constraint(t_grid *grid, int reliable_digit, int cell_pos_x, int cell_pos_y)
 {
 	int			i;
 	int			j;
@@ -145,7 +145,7 @@ void			propage_block_constraint(t_grid *grid, t_digit reliable_digit, int cell_p
 	}
 }
 
-void			propage_constraint(t_grid *grid, t_digit reliable_digit, int cell_pos_x, int cell_pos_y)
+void			propage_constraint(t_grid *grid, int reliable_digit, int cell_pos_x, int cell_pos_y)
 {
 	propage_row_and_col_constraint(grid, reliable_digit, cell_pos_x, cell_pos_y);
 	propage_block_constraint(grid, reliable_digit, cell_pos_x, cell_pos_y);

@@ -20,7 +20,7 @@ OBJS=				$(patsubst src/%,obj/%,$(SRCS:.c=.o))
 MAIN= sudokuSolver
 
 
-.PHONY: depend clean
+.PHONY: clean
 
 re: clean all
 

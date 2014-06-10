@@ -1,6 +1,6 @@
 #include "ft_sudoku.h"
 
-void				force_cell_reliable(t_cell *cell, t_digit reliable_digit)
+void				force_cell_reliable(t_cell *cell, int reliable_digit)
 {
 	int				i;
 
@@ -19,7 +19,7 @@ void				force_cell_reliable(t_cell *cell, t_digit reliable_digit)
 void				put_reliable_and_propage_constraint(t_grid *grid, int cell_pos_x, int cell_pos_y)
 {
 	int				i;
-	t_digit			reliable_digit;
+	int			reliable_digit;
 
 	for(i = 0; i < GRID_TOP_DIGIT; ++i)
 	{

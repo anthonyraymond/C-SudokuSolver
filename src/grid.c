@@ -15,7 +15,7 @@ t_grid			*create_grid(char **input_array)
 		for (j = 0; j < GRID_TOP_DIGIT; ++j)
 		{
 			t_cell *cell;
-			t_digit digit = (int) (input_array[i][j] - 48);
+			int digit = (int) (input_array[i][j] - 48);
 
 			cell = (t_cell*) create_cell(digit, i, j);
 			grid->cells[i][j] = cell;
@@ -134,7 +134,7 @@ void			copy_grid(t_grid *dest, t_grid *origin)
 	int			i;
 	int			j;
 
-	memcpy(&dest->reliable_cells_count, &origin->reliable_cells_count, sizeof(uint8_t));
+	memcpy(&dest->reliable_cells_count, &origin->reliable_cells_count, sizeof(int));
 
 	for (i = 0; i < GRID_TOP_DIGIT; ++i)
 	{
