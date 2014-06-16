@@ -6,7 +6,7 @@ Usage :
 sudokuSolver 100000000-020000000-003000000-000400000-000050000-000006000-000000700-000000080-000000009
 
 
-Using the below exemple will solve this grid :
+Using the above exemple will solve this grid :
 
 | 1 | 0 | 0 |#| 0 | 0 | 0 |#| 0 | 0 | 0 |<br />
 | 0 | 2 | 0 |#| 0 | 0 | 0 |#| 0 | 0 | 0 |<br />
