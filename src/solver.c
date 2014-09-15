@@ -165,7 +165,8 @@ char				**input_as_array(const char *input)
 	grid_array = malloc(sizeof(char *) * 9);
 	grid_array[0] = malloc(sizeof(char) * 10);
 
-	for (i = 0; i < strlen(input); ++i)
+	const unsigned int len = strlen(input);
+	for (i = 0; i < len; ++i)
 	{
 
 		if (input[i] != '-')
