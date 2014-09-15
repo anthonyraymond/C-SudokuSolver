@@ -1,6 +1,6 @@
 #include "ft_sudoku.h"
 
-t_cell			*create_cell(int reliable_digit, int pos_x, int pos_y)
+t_cell			*create_cell(const int reliable_digit, const int pos_x, int pos_y)
 {
 	int			i;
 	t_cell		*cell;
@@ -43,7 +43,7 @@ void			destroy_cell(t_cell *cell)
 	}
 }
 
-void			copy_cell(t_cell *dest, t_cell *origin)
+void			copy_cell(t_cell *dest, const t_cell *origin)
 {
 	memcpy(dest, origin, sizeof(t_cell));
 }

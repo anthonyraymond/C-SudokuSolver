@@ -6,6 +6,8 @@ CFLAGS=				-Wall -Wextra
 
 ifeq ($(DEBUG), true)
 	CFLAGS+= -g
+else
+	CFLAGS+= -Wpadded -O2
 endif
 
 INCLUDES=			-Iinclude

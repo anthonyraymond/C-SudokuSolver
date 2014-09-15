@@ -65,7 +65,7 @@ void			destroy_grid(t_grid *grid)
 	}
 }
 
-void			print_grid(t_grid *grid)
+void			print_grid(const t_grid *grid)
 {
 	int			i;
 	int			j;
@@ -105,7 +105,7 @@ void			print_grid(t_grid *grid)
 	printf("%s\n", output);
 }
 
-void			print_grid_as_line(t_grid *grid)
+void			print_grid_as_line(const t_grid *grid)
 {
 	int			i;
 	int			j;
@@ -129,7 +129,7 @@ void			print_grid_as_line(t_grid *grid)
 	printf("%s\n", output);
 }
 
-void			copy_grid(t_grid *dest, t_grid *origin)
+void			copy_grid(t_grid *dest, const t_grid *origin)
 {
 	int			i;
 	int			j;

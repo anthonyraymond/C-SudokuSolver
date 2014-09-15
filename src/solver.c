@@ -1,6 +1,6 @@
 #include "ft_sudoku.h"
 
-void				force_cell_reliable(t_cell *cell, int reliable_digit)
+void				force_cell_reliable(t_cell *cell, const int reliable_digit)
 {
 	int				i;
 
@@ -16,7 +16,7 @@ void				force_cell_reliable(t_cell *cell, int reliable_digit)
 
 
 
-void				put_reliable_and_propage_constraint(t_grid *grid, int cell_pos_x, int cell_pos_y)
+void				put_reliable_and_propage_constraint(t_grid *grid, const int cell_pos_x, const int cell_pos_y)
 {
 	int				i;
 	int			reliable_digit;
@@ -89,6 +89,7 @@ t_grid				*recursive_solver(t_grid *grid, t_cell *forced_cell)
 	t_cell			*next_forced_cell;
 	int				i;
 
+	buffer_grid = NULL;
 //	print_grid(grid);
 	if (grid->reliable_cells_count == GRID_DIGIT_COUNT && check_whole_grid_integrity(grid))
 	{
@@ -151,7 +152,7 @@ t_grid				*recursive_solver(t_grid *grid, t_cell *forced_cell)
 }
 
 
-char				**input_as_array(char *input)
+char				**input_as_array(const char *input)
 {
 	char			**grid_array;
 	unsigned int	i;

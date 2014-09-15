@@ -1,6 +1,6 @@
 #include "ft_sudoku.h"
 
-t_bool			check_row_and_col_integrity(t_grid *grid, int row_index, int col_index)
+t_bool			check_row_and_col_integrity(const t_grid *grid, const int row_index, const int col_index)
 {
 	int 		i;
 	t_bool		avaliable_digits_raw[9] = {false};
@@ -34,7 +34,7 @@ t_bool			check_row_and_col_integrity(t_grid *grid, int row_index, int col_index)
 }
 
 
-t_bool			check_cell_block_integrity(t_grid *grid, int cell_pos_x, int cell_pos_y)
+t_bool			check_cell_block_integrity(const t_grid *grid, const int cell_pos_x, const int cell_pos_y)
 {
 	int			i;
 	int			j;
@@ -65,7 +65,7 @@ t_bool			check_cell_block_integrity(t_grid *grid, int cell_pos_x, int cell_pos_y
 	return (true);
 }
 
-t_bool			check_whole_grid_integrity(t_grid *grid)
+t_bool			check_whole_grid_integrity(const t_grid *grid)
 {
 	int			i;
 	int			j;
@@ -87,7 +87,7 @@ t_bool			check_whole_grid_integrity(t_grid *grid)
 	return (true);
 }
 
-void			propage_row_and_col_constraint(t_grid *grid, int reliable_digit, int cell_pos_x, int cell_pos_y)
+void			propage_row_and_col_constraint(t_grid *grid, const int reliable_digit, const int cell_pos_x, const int cell_pos_y)
 {
 	int			i;
 	t_cell		*buffer_cell;
@@ -116,7 +116,7 @@ void			propage_row_and_col_constraint(t_grid *grid, int reliable_digit, int cell
 	}
 }
 
-void			propage_block_constraint(t_grid *grid, int reliable_digit, int cell_pos_x, int cell_pos_y)
+void			propage_block_constraint(t_grid *grid, const int reliable_digit, const int cell_pos_x, const int cell_pos_y)
 {
 	int			i;
 	int			j;
@@ -145,7 +145,7 @@ void			propage_block_constraint(t_grid *grid, int reliable_digit, int cell_pos_x
 	}
 }
 
-void			propage_constraint(t_grid *grid, int reliable_digit, int cell_pos_x, int cell_pos_y)
+void			propage_constraint(t_grid *grid, const int reliable_digit, const int cell_pos_x, const int cell_pos_y)
 {
 	propage_row_and_col_constraint(grid, reliable_digit, cell_pos_x, cell_pos_y);
 	propage_block_constraint(grid, reliable_digit, cell_pos_x, cell_pos_y);
