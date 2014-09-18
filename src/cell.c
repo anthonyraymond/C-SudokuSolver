@@ -2,8 +2,8 @@
 
 t_cell			*create_cell(const int reliable_digit, const int pos_x, int pos_y)
 {
-	int			i;
 	t_cell		*cell;
+	int			i;
 
 	cell = malloc(sizeof(t_cell));
 	if (!cell)

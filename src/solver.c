@@ -19,7 +19,7 @@ void				force_cell_reliable(t_cell *cell, const int reliable_digit)
 void				put_reliable_and_propage_constraint(t_grid *grid, const int cell_pos_x, const int cell_pos_y)
 {
 	int				i;
-	int			reliable_digit;
+	int				reliable_digit;
 
 		reliable_digit = 0;
 
@@ -42,9 +42,9 @@ void				put_reliable_and_propage_constraint(t_grid *grid, const int cell_pos_x, 
 
 t_cell				*find_best_cell_and_place_reliables(t_grid *grid)
 {
+	t_cell			*best_cell;
 	int				i;
 	int				j;
-	t_cell			*best_cell;
 
 	best_cell = NULL;
 
@@ -154,10 +154,10 @@ t_grid				*recursive_solver(t_grid *grid, t_cell *forced_cell)
 
 char				**input_as_array(const char *input)
 {
-	char			**grid_array;
 	unsigned int	i;
 	int				current_array_index;
 	int				current_line_index;
+	char			**grid_array;
 
 	current_array_index = 0;
 	current_line_index = 0;

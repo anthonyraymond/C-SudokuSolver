@@ -2,9 +2,9 @@
 
 t_grid			*create_grid(char **input_array)
 {
+	t_grid			*grid;
 	int				i;
 	int				j;
-	t_grid			*grid;
 
 	grid = malloc(sizeof(t_grid));
 
@@ -112,7 +112,6 @@ void			print_grid_as_line(const t_grid *grid)
 	char		output[90] = "";
 	char		buffer[5] = "";
 
-
 	for (i = 0; i < GRID_TOP_DIGIT; ++i)
 	{
 		for (j = 0; j < GRID_TOP_DIGIT; ++j)
@@ -134,7 +133,7 @@ void			copy_grid(t_grid *dest, const t_grid *origin)
 	int			i;
 	int			j;
 
-	memcpy(&dest->reliable_cells_count, &origin->reliable_cells_count, sizeof(int));
+	memcpy(&dest->reliable_cells_count, &origin->reliable_cells_count, sizeof(origin->reliable_cells_count));
 
 	for (i = 0; i < GRID_TOP_DIGIT; ++i)
 	{

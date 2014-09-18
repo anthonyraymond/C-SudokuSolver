@@ -3,9 +3,9 @@
 t_bool			check_row_and_col_integrity(const t_grid *grid, const int row_index, const int col_index)
 {
 	int 		i;
+	int			current_digit;
 	t_bool		avaliable_digits_raw[9] = {false};
 	t_bool		avaliable_digits_col[9] = {false};
-	int			current_digit;
 
 	for (i = 0; i < GRID_TOP_DIGIT; ++i)
 	{
@@ -38,10 +38,10 @@ t_bool			check_cell_block_integrity(const t_grid *grid, const int cell_pos_x, co
 {
 	int			i;
 	int			j;
-	t_bool		avaliable_digits[9] = {false};
 	int			current_digit;
 	const int block_x_start = ((int)(cell_pos_x / BLOCK_BY_ROW)) * BLOCK_BY_ROW;
 	const int block_y_start = ((int)(cell_pos_y / BLOCK_BY_ROW)) * BLOCK_BY_ROW;
+	t_bool		avaliable_digits[9] = {false};
 
 	for (i = block_x_start; i < block_x_start + 3; ++i)
 	{
@@ -86,8 +86,8 @@ t_bool			check_whole_grid_integrity(const t_grid *grid)
 
 void			propage_row_and_col_constraint(t_grid *grid, const int reliable_digit, const int cell_pos_x, const int cell_pos_y)
 {
-	int			i;
 	t_cell		*buffer_cell;
+	int			i;
 
 	for (i = 0; i < GRID_TOP_DIGIT; ++i)
 	{
@@ -115,9 +115,9 @@ void			propage_row_and_col_constraint(t_grid *grid, const int reliable_digit, co
 
 void			propage_block_constraint(t_grid *grid, const int reliable_digit, const int cell_pos_x, const int cell_pos_y)
 {
+	t_cell		*buffer_cell;
 	int			i;
 	int			j;
-	t_cell		*buffer_cell;
 
 	const int block_x_start = ((int)(cell_pos_x / BLOCK_BY_ROW)) * BLOCK_BY_ROW;
 	const int block_y_start = ((int)(cell_pos_y / BLOCK_BY_ROW)) * BLOCK_BY_ROW;
