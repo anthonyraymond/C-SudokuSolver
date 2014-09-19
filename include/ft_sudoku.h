@@ -34,25 +34,26 @@ struct s_cell
 struct s_grid
 {
 	int					reliable_cells_count;
-	//This int is useless, just here for data alignement purpose
+	//This int is useless, here for data alignement purpose
 	int					align_purpose;
 	t_cell				*cells[GRID_TOP_DIGIT][GRID_TOP_DIGIT];
 };
 
 
-t_grid						*create_grid(char **input_array);
-void						destroy_grid(t_grid *grid);
-void						print_grid(const t_grid *grid);
-void						print_grid_as_line(const t_grid *grid);
-void						copy_grid(t_grid *dest, const t_grid *origin);
+t_grid			*create_grid(char **input_array);
+void			destroy_grid(t_grid *grid);
+void			print_grid(const t_grid *grid);
+void			print_grid_as_line(const t_grid *grid);
+void			copy_grid(t_grid *dest, const t_grid *origin);
 
-t_cell						*create_cell(const int reliable_digit, const int pos_x, const int pos_y);
-void						destroy_cell(t_cell *cell);
-void						copy_cell(t_cell *dest, const t_cell *origin);
+t_cell			*create_cell(const int reliable_digit, const int pos_x, const int pos_y);
+void			destroy_cell(t_cell *cell);
+void			copy_cell(t_cell *dest, const t_cell *origin);
 
-t_bool						check_row_and_col_integrity(const t_grid *grid, const int row_index, const int col_index);
-t_bool						check_cell_block_integrity(const t_grid *grid, const int cell_pos_x, const int cell_pos_y);
-t_bool						check_whole_grid_integrity(const t_grid *grid);
-void						propage_constraint(t_grid *grid, const int reliable_digit, const int cell_pos_x, const int cell_pos_y);
+t_bool			check_row_and_col_integrity(const t_grid *grid, const int row_index, const int col_index);
+t_bool			check_cell_block_integrity(const t_grid *grid, const int cell_pos_x, const int cell_pos_y);
+t_bool			check_whole_grid_integrity(const t_grid *grid);
+void			propage_constraint(t_grid *grid, t_cell *cell);
+void			propage_whole_grid_constraint(t_grid *grid);
 
 #endif

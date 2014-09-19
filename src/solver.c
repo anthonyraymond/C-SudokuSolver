@@ -16,25 +16,25 @@ void				force_cell_reliable(t_cell *cell, const int reliable_digit)
 
 
 
-void				put_reliable_and_propage_constraint(t_grid *grid, const int cell_pos_x, const int cell_pos_y)
+void				put_reliable_and_propage_constraint(t_grid *grid, t_cell *cell)
 {
 	int				i;
 	int				reliable_digit;
 
-		reliable_digit = 0;
+	reliable_digit = 0;
 
 	for(i = 0; i < GRID_TOP_DIGIT; ++i)
 	{
-		if (grid->cells[cell_pos_x][cell_pos_y]->possible_digits[i])
+		if (cell->possible_digits[i])
 		{
 			reliable_digit = (i + 1);
-			grid->cells[cell_pos_x][cell_pos_y]->reliable_digit = reliable_digit;
+			cell->reliable_digit = reliable_digit;
 			++grid->reliable_cells_count;
 			break;
 		}
 	}
 
-	propage_constraint(grid, reliable_digit, cell_pos_x, cell_pos_y);
+	propage_constraint(grid, cell);
 }
 
 
@@ -43,6 +43,7 @@ void				put_reliable_and_propage_constraint(t_grid *grid, const int cell_pos_x, 
 t_cell				*find_best_cell_and_place_reliables(t_grid *grid)
 {
 	t_cell			*best_cell;
+	t_cell			*buffer_cell;
 	int				i;
 	int				j;
 
@@ -52,18 +53,19 @@ t_cell				*find_best_cell_and_place_reliables(t_grid *grid)
 	{
 		for (j = 0; j < GRID_TOP_DIGIT; ++j)
 		{
-			if (grid->cells[i][j]->reliable_digit == 0)
+			buffer_cell = grid->cells[i][j];
+			if (buffer_cell->reliable_digit == 0)
 			{
-				if (grid->cells[i][j]->possible_digits_count != 1)
+				if (buffer_cell->possible_digits_count != 1)
 				{
-					if (!best_cell || (grid->cells[i][j]->possible_digits_count < best_cell->possible_digits_count ))
+					if (!best_cell || (buffer_cell->possible_digits_count < best_cell->possible_digits_count ))
 					{
-						best_cell = grid->cells[i][j];
+						best_cell = buffer_cell;
 					}
 				}
 				else
 				{
-					put_reliable_and_propage_constraint(grid, i, j);
+					put_reliable_and_propage_constraint(grid, buffer_cell);
 					if (!check_row_and_col_integrity(grid, i, j)
 						|| !check_cell_block_integrity(grid, i, j)
 						)
@@ -75,7 +77,7 @@ t_cell				*find_best_cell_and_place_reliables(t_grid *grid)
 		}
 	}
 
-	return best_cell;
+	return (best_cell);
 }
 
 
@@ -103,7 +105,7 @@ t_grid				*recursive_solver(t_grid *grid, t_cell *forced_cell)
 
 			grid->cells[forced_cell->pos_x][forced_cell->pos_y] = forced_cell;
 			++grid->reliable_cells_count;
-			propage_constraint(grid, forced_cell->reliable_digit, forced_cell->pos_x, forced_cell->pos_y);
+			propage_constraint(grid, forced_cell);
 		}
 
 		best_cell = find_best_cell_and_place_reliables(grid);
@@ -210,18 +212,20 @@ int					main(int argc, char *argv[])
 	grid_as_array = input_as_array(argv[1]);
 
 	grid = (t_grid*) create_grid(grid_as_array);
-	if (grid != NULL)
-	{
-		grid = recursive_solver(grid, NULL);
-		print_grid_as_line(grid);
 
-		destroy_grid(grid);
-	}
-	else
+	propage_whole_grid_constraint(grid);
+
+	if (!check_whole_grid_integrity(grid))
 	{
 		printf("Unsolvable grid\n");
+		destroy_grid(grid);
 		return (1);
 	}
+
+	grid = recursive_solver(grid, NULL);
+	print_grid_as_line(grid);
+
+	destroy_grid(grid);
 
 	return (0);
 }

@@ -1,6 +1,6 @@
 #include "ft_sudoku.h"
 
-t_cell			*create_cell(const int reliable_digit, const int pos_x, int pos_y)
+t_cell			*create_cell(const int reliable_digit, const int pos_x, const int pos_y)
 {
 	t_cell		*cell;
 	int			i;

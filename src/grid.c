@@ -5,6 +5,7 @@ t_grid			*create_grid(char **input_array)
 	t_grid			*grid;
 	int				i;
 	int				j;
+	int				digit_buffer;
 
 	grid = malloc(sizeof(t_grid));
 
@@ -15,9 +16,9 @@ t_grid			*create_grid(char **input_array)
 		for (j = 0; j < GRID_TOP_DIGIT; ++j)
 		{
 			t_cell *cell;
-			int digit = (int) (input_array[i][j] - 48);
+			digit_buffer = (int) (input_array[i][j] - 48);
 
-			cell = (t_cell*) create_cell(digit, i, j);
+			cell = (t_cell*) create_cell(digit_buffer, i, j);
 			grid->cells[i][j] = cell;
 			if (cell->reliable_digit != 0)
 			{
@@ -29,21 +30,6 @@ t_grid			*create_grid(char **input_array)
 
 	free(input_array);
 
-	for (i = 0; i < GRID_TOP_DIGIT; ++i)
-	{
-		for (j = 0; j < GRID_TOP_DIGIT; ++j)
-		{
-			if (grid->cells[i][j]->reliable_digit != 0)
-			{
-				propage_constraint(grid, grid->cells[i][j]->reliable_digit, i, j);
-			}
-		}
-	}
-	if (!check_whole_grid_integrity(grid))
-	{
-		destroy_grid(grid);
-		return (NULL);
-	}
 	return (grid);
 }
 
