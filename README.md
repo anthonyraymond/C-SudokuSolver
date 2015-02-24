@@ -1,11 +1,12 @@
 # C-SudokuSolver
-
+0 mémery leaks
 
 ## Installation :
 
 Clone repository, then
 #### Linux
 ``` sh
+git clone https://github.com/anthonyraymond/SudokuSolver.git
 cd SudokuSolver/
 make
 ```
