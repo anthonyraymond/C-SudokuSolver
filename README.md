@@ -1,5 +1,5 @@
 # C-SudokuSolver
-0 mémery leaks
+No memory leaks
 
 ## Installation :
 
